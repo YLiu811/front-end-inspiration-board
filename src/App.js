@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
+import Card from "./components/Card.js";
 
 function App() {
   return (
@@ -7,6 +7,7 @@ function App() {
       <header className="App-header"></header>
       <body>
         <h1>Inspiration Board</h1>
+        <Card message={"hello!"} />
       </body>
     </div>
   );
