@@ -1,14 +1,35 @@
 import "./App.css";
-import Card from "./components/Card.js";
+import CardList from "./components/CardList";
+
+const CARD_LIST = [
+  {
+    card_id: 1,
+    message: "I love you", 
+    owner: "Megan"
+  },
+  {
+    card_id: 2,
+    message: "I love you",
+    owner: "Megan"
+  },
+]
 
 function App() {
+  console.log('App component is rendering');
+
+  // const [cardList, setCards] = useState([]);
+
+  // const updateLiked = (id) = {
+
+  // }
+
   return (
-    <div className="App">
-      <header className="App-header"></header>
-      <body>
+    <div>
+      <header></header>
+      <main>
         <h1>Inspiration Board</h1>
-        <Card message={"hello!"} />
-      </body>
+        <CardList cards={CARD_LIST} />
+      </main>
     </div>
   );
 }
