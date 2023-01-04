@@ -1,27 +1,22 @@
+import { useState, useEffect } from "react";
 import "./App.css";
 import CardList from "./components/CardList";
 
 const CARD_LIST = [
   {
     card_id: 1,
-    message: "I love you", 
-    owner: "Megan"
+    message: "I love you",
+    owner: "Megan",
   },
   {
     card_id: 2,
     message: "I love you",
-    owner: "Megan"
+    owner: "Megan",
   },
-]
+];
 
 function App() {
-  console.log('App component is rendering');
-
-  // const [cardList, setCards] = useState([]);
-
-  // const updateLiked = (id) = {
-
-  // }
+  console.log("App component is rendering");
 
   return (
     <div>

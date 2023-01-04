@@ -1,7 +1,5 @@
-import Card from  './Card.js';
-import PropTypes from 'prop-types';
-
-
+import Card from "./Card.js";
+import PropTypes from "prop-types";
 
 const CardList = (props) => {
   const cards = props.cards;
@@ -17,7 +15,7 @@ const CardList = (props) => {
   });
 
   return <div className="cardList">{cardComponents}</div>;
-}
+};
 
 CardList.propTypes = {
   cardList: PropTypes.arrayOf(
