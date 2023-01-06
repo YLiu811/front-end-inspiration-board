@@ -1,5 +1,6 @@
 import "./App.css";
 import CardList from "./components/CardList";
+import NewCardForm from "./components/NewCardForm";
 
 const CARD_LIST = [
   {
@@ -23,6 +24,7 @@ function App() {
       <main>
         <h1>Inspiration Board</h1>
         <CardList cards={CARD_LIST} />
+        <NewCardForm message="testing" />
       </main>
     </div>
   );

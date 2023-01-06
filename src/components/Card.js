@@ -6,7 +6,7 @@ import { useState } from "react";
 function Card(props) {
   const card_id = props.card_id;
   const message = props.message;
-  const owner = props.owner;
+
   const deleteCard = props.deleteCard;
 
   //to do: wrap this in a function.
@@ -41,7 +41,6 @@ function Card(props) {
 Card.propTypes = {
   card_id: PropTypes.number.isRequired,
   message: PropTypes.string,
-  owner: PropTypes.string,
   likes: PropTypes.number,
   deleteCard: PropTypes.func,
 };
