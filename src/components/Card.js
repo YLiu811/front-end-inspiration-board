@@ -4,12 +4,14 @@ import { useState } from "react";
 //import css here.
 
 function Card(props) {
-  const cardId = props.cardId;
+  const card_id = props.card_id;
   const message = props.message;
   const owner = props.owner;
+  const deleteCard = props.deleteCard;
 
   //to do: wrap this in a function.
-  const [likes, setLikes] = useState(props.likes); //set as 0 for testing for now.
+  const [likes, setLikes] = useState(0); //make props.likes later!!
+
   console.log(likes);
 
   return (
@@ -23,8 +25,10 @@ function Card(props) {
       >
         +1
       </button>
-      <button id="delete_card_button">Delete</button>
-      <p id="like_counter">How many likes?💕</p>
+      <button id="delete_card_button" onClick={deleteCard(card_id)}>
+        Delete
+      </button>
+      <p id="like_counter">{likes}💕</p>
     </div>
   );
 }
@@ -34,5 +38,6 @@ Card.propTypes = {
   message: PropTypes.string,
   owner: PropTypes.string,
   likes: PropTypes.number,
+  deleteCard: PropTypes.func,
 };
 export default Card;
