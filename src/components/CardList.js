@@ -19,6 +19,22 @@ const CardList = (props) => {
     setCardList(newCardList);
   };
 
+  // const addCard = (newCardInfo) => {
+  // axios.post(URL, newBikeInfo)
+  // .then((response)=>{
+  //fetchAllBikes();  //<- This helper function will make a .get() call to fetch all bikes and update the state variable to display them
+  //   const newCards = [...cardList];
+  //   const newCardJSON={
+  //     ...newCardInfo,
+  //     "id": response.data.id
+  //   }
+  //   newCards.push(newCardJSON);
+  //   setCardsList(newCards); //this method does not require a .get request; we are pushing the bike data to the bikes list and using the setter to trigger a rerender.
+  // })
+  // .catch((error)=>{
+  //   console.log(error);
+  // });
+
   const cardComponents = cardList.map((card) => {
     return (
       <Card
