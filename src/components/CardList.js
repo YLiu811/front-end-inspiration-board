@@ -6,19 +6,20 @@ const CardList = (props) => {
   const cards = props.cards;
   //const deleteCard = props.deleteCard;
 
-  const [newCardList, setNewCardList] = useState([]);
+  const [cardList, setCardList] = useState(cards);
 
   const deleteCard = (cardId) => {
     console.log("deleteCard called", cardId);
-    for (const card of cards) {
+    const newCardList = [];
+    for (const card of cardList) {
       if (card.card_id !== cardId) {
         newCardList.push(card);
       }
     }
-    setNewCardList(newCardList);
+    setCardList(newCardList);
   };
 
-  const cardComponents = cards.map((card) => {
+  const cardComponents = cardList.map((card) => {
     return (
       <Card
         key={card.card_id}

@@ -25,7 +25,12 @@ function Card(props) {
       >
         +1
       </button>
-      <button id="delete_card_button" onClick={deleteCard(card_id)}>
+      <button
+        id="delete_card_button"
+        onClick={() => {
+          deleteCard(card_id);
+        }}
+      >
         Delete
       </button>
       <p id="like_counter">{likes}💕</p>
