@@ -4,7 +4,7 @@ import { useState } from "react";
 //import css here.
 
 function Card(props) {
-  const card_id = props.card_id;
+  const id = props.id;
   const message = props.message;
 
   const deleteCard = props.deleteCard;
@@ -28,7 +28,7 @@ function Card(props) {
       <button
         id="delete_card_button"
         onClick={() => {
-          deleteCard(card_id);
+          deleteCard(id);
         }}
       >
         Delete
@@ -39,7 +39,7 @@ function Card(props) {
 }
 
 Card.propTypes = {
-  card_id: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   message: PropTypes.string,
   likes: PropTypes.number,
   deleteCard: PropTypes.func,

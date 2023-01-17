@@ -7,12 +7,12 @@ import Board from "./components/Board";
 
 const CARD_LIST = [
   {
-    card_id: 1,
+    id: 1,
     message: "I love you",
     owner: "Megan",
   },
   {
-    card_id: 2,
+    id: 2,
     message: "This is Card 2",
     owner: "Megan",
   },
