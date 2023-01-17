@@ -66,6 +66,24 @@ function App() {
     console.log("newCardForm is working");
   };
 
+  const deleteCard = (cardId) => {
+    console.log("deleteCard called", cardId);
+    axios
+      .delete(`${URL}/1/${cardId}`)
+      .then(() => {
+        const newCardList = [];
+        for (const card of cardsList) {
+          if (card.id !== cardId) {
+            newCardList.push(card);
+          }
+        }
+        setCardsList(newCardList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   console.log("App component is rendering");
 
   console.log(test_board);
@@ -74,7 +92,7 @@ function App() {
       <header></header>
       <main>
         <h1>Inspiration Board</h1>
-        <CardList cards={cardsList} />
+        <CardList cards={cardsList} deleteCard={deleteCard} />
         <NewCardForm message="testing" addCardCallbackFunc={addCard} />
         <Board
           id={test_board.board_id}

@@ -4,20 +4,9 @@ import PropTypes from "prop-types";
 
 const CardList = (props) => {
   const cards = props.cards;
-  //const deleteCard = props.deleteCard;
-  console.log(cards)
+  const deleteCard = props.deleteCard;
+  console.log(cards);
   // const [cardList, setCardList] = useState(cards); //useState & useEffect in App.js
-
-  const deleteCard = (cardId) => {
-    console.log("deleteCard called", cardId);
-    const newCardList = [];
-    for (const card of cardList) {
-      if (card.id !== cardId) {
-        newCardList.push(card);
-      }
-    }
-    setCardList(newCardList);
-  };
 
   const cardComponents = cardList.map((card) => {
     return (
@@ -42,6 +31,7 @@ CardList.propTypes = {
       owner: PropTypes.string,
     })
   ),
+  deleteCard: PropTypes.func,
 };
 
 export default CardList;
