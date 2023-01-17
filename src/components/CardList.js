@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const CardList = (props) => {
   const cards = props.cards;
   //const deleteCard = props.deleteCard;
-
+  console.log(cards)
   const [cardList, setCardList] = useState(cards);
 
   const deleteCard = (cardId) => {
