@@ -7,16 +7,20 @@ import Card from "./Card";
 // returns h2 with title, h4 with owner, a card element for cards
 
 const Board = (props) => {
-    const board_id = props.id;
-    const title = props.title;
-    const owner = props.owner;
-    const cards = props.cards;
-    console.log(props.cards)
+    const boards = props.boards
+    const boardComponents = []
+    for (const board of boards) {
+        boardComponents.push(
+            <div>
+                <h1>{board.title}</h1>
+                <h4>{board.owner}</h4>
+                {/* <CardList cards={board.cards}/> */}
+            </div>
+        )
+    }
     return (
         <div>
-            <h1 id="title">{title}</h1>
-            <h4>{owner}</h4>
-            <CardList cards={cards} />
+            {boardComponents}
         </div>
     );
 };
