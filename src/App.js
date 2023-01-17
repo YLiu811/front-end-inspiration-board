@@ -12,7 +12,7 @@ const CARD_LIST = [
   },
   {
     card_id: 2,
-    message: "I love you",
+    message: "This is Card 2",
     owner: "Megan",
   },
 ];
