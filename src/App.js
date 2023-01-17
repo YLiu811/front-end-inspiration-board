@@ -29,6 +29,24 @@ function App() {
 
   const URL = "http://localhost:5000/";
 
+  const fetchAllCards = () => {
+    axios
+      .get(URL + "/boards/1/cards") //make this get from a specific board, not just board 1.
+      .then((res) => {
+        const cardsAPIResCopy = res.data.map((card) => {
+          return {
+            ...card,
+          };
+        });
+        setCardsList(cardsAPIResCopy);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(fetchAllCards, []); //intial get request
+
   const addCard = (newCardInfo) => {
     //connecting to axios
     axios
@@ -56,7 +74,7 @@ function App() {
       <header></header>
       <main>
         <h1>Inspiration Board</h1>
-        <CardList cards={CARD_LIST} />
+        <CardList cards={cardsList} />
         <NewCardForm message="testing" addCardCallbackFunc={addCard} />
         <Board
           id={test_board.board_id}
@@ -64,7 +82,6 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         />
-        {/* <CardList cards={CARD_LIST} /> */}
       </main>
     </div>
   );

@@ -6,7 +6,7 @@ const CardList = (props) => {
   const cards = props.cards;
   //const deleteCard = props.deleteCard;
   console.log(cards)
-  const [cardList, setCardList] = useState(cards);
+  // const [cardList, setCardList] = useState(cards); //useState & useEffect in App.js
 
   const deleteCard = (cardId) => {
     console.log("deleteCard called", cardId);
