@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "./Card.js";
 import PropTypes from "prop-types";
+import "./CardList.css";
 
 const CardList = (props) => {
   const cardsList = props.cards;

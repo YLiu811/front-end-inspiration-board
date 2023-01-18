@@ -5,6 +5,7 @@ import "./App.css";
 import NewCardForm from "./components/NewCardForm";
 import Board from "./components/Board";
 import NewBoardForm from "./components/NewBoardForm";
+import "./App.css";
 
 // const CARD_LIST = [
 //   {
@@ -136,8 +137,10 @@ function App() {
   return (
     <div>
       <header></header>
-      <main>
-        <h1>Inspiration Board</h1>
+      <main className="container">
+        <div className="title-container">
+          <p className="title">Inspiration Board</p>
+        </div>
         {/* <CardList cards={cardsList} deleteCard={deleteCard} /> */}
         <NewCardForm message="testing" addCardCallbackFunc={addCard} />
         {/* <Board

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import CardList from "./CardList";
+import "./Board.css";
 // import { useState } from "react";
 // import Card from "./Card";
 
