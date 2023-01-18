@@ -1,10 +1,12 @@
 // import { useState } from "react";
 import Card from "./Card.js";
 import PropTypes from "prop-types";
+import NewCardForm from "./NewCardForm.js";
 
 const CardList = (props) => {
   const cards = props.cards;
   const deleteCard = props.deleteCard;
+  const addCard = props.addCard;
   // const fetchAllCards = props.fetchAllCards;
   console.log(cards);
 
@@ -20,7 +22,10 @@ const CardList = (props) => {
     );
   });
 
-  return <div className="cardList">{cardComponents}</div>;
+  return <div className="cardList">
+    {cardComponents}
+    <NewCardForm message="testing" addCardCallbackFunc={addCard} />
+    </div>;
 };
 
 CardList.propTypes = {
@@ -33,6 +38,7 @@ CardList.propTypes = {
   ),
   deleteCard: PropTypes.func.isRequired,
   fetchAllCards: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
 };
 
 export default CardList;

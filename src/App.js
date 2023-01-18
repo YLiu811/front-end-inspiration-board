@@ -33,7 +33,7 @@ function App() {
   const fetchAllCards = (boardId) => {
     axios
     
-      .get(`${URL}/boards/${boardId}/cards`) //make this get from a specific board, not just board 1.
+      .get(`${URL}/boards/${boardId}/cards`)
       .then((res) => {
         console.log(res)
         const cardsAPIResCopy = res.data.map((card) => {
@@ -68,10 +68,10 @@ function App() {
       });
   }, []);
 
-  const addCard = (newCardInfo) => {
+  const addCard = (boardId, newCardInfo) => {
     //connecting to axios
     axios
-      .post(URL + "/boards/1/cards", newCardInfo) //make this post to a specific board, not just board 1.
+      .post(`${URL}/boards/${boardId}/cards`, newCardInfo) 
       .then((response) => {
         const newCards = [...cardsList];
         const newCardJSON = {
@@ -124,8 +124,9 @@ function App() {
           cards={cardsList}
           // fetchAllCards={fetchAllCards}
           deleteCard={deleteCard}
+          addCard={addCard}
         />
-        <NewCardForm message="testing" addCardCallbackFunc={addCard} />
+        {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
         {/* <Board
           id={test_board.board_id}
           title={test_board.title}
