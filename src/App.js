@@ -5,6 +5,9 @@ import CardList from "./components/CardList";
 import NewCardForm from "./components/NewCardForm";
 import Board from "./components/Board";
 
+import axios from "axios";
+import NewBoardForm from "./components/NewBoardForm";
+
 const CARD_LIST = [
   {
     id: 1,
@@ -87,6 +90,56 @@ function App() {
   console.log("App component is rendering");
 
   console.log(test_board);
+
+  const [boardList, setBoardList] = useState([]);
+  const [cardList, setCardList] = useState([]);
+  const URL = "http://127.0.0.1:5000";
+
+  useEffect(() => {
+    axios
+      .get(URL + "/boards")
+      .then((res) => {
+        const boardsAPIResCopy = res.data.map((board) => {
+          // console.log(getCards(board.board_id))
+          return {
+            ...board,
+          };
+        });
+        setBoardList(boardsAPIResCopy);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const getCards = (boardId) => {
+    axios
+      .get(`${URL}/boards/${boardId}/cards`)
+      .then((res) => {
+        // console.log(res.data);
+        const cardsCopy = res.data.map((card) => {
+          return {
+            ...card,
+          };
+        });
+        console.log(cardsCopy);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const addBoard = (newBoardInfo) => {
+    axios
+      .post(URL + "boards", newBoardInfo)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <header></header>
@@ -100,6 +153,9 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         />
+        <Board boards={boardList} getCards={getCards} />
+        {/* <CardList cards={CARD_LIST} /> */}
+        <NewBoardForm addBoardCallBackFunc={addBoard} />
       </main>
     </div>
   );
