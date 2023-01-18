@@ -3,12 +3,12 @@ import Card from "./Card.js";
 import PropTypes from "prop-types";
 
 const CardList = (props) => {
-  const cards = props.cards;
+  const cardsList = props.cards;
   const deleteCard = props.deleteCard;
-  console.log(cards);
+  console.log(cardsList);
   // const [cardList, setCardList] = useState(cards); //useState & useEffect in App.js
 
-  const cardComponents = cardList.map((card) => {
+  const cardComponents = cardsList.map((card) => {
     return (
       <Card
         key={card.id}

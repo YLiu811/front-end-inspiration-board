@@ -7,37 +7,33 @@ import Card from "./Card";
 // returns h2 with title, h4 with owner, a card element for cards
 
 const Board = (props, getCards) => {
-    // const [cardList, setCardList] = useState([]);
-    const boards = props.boards;
-    const cardsList = []
-    const boardComponents = [];
-    for (const board of boards) {
-        cardsList.push(props.getCards(board.id))
-    }
-    for (const board of boards) {
-        // console.log(board)
-        console.log(cardsList)
-        boardComponents.push(
-            <div>
-                <h1>{board.title}</h1>
-                <h4>{board.owner}</h4>
-                <CardList cards={cardsList}/>
-            </div>
-        )
-    }
-    return (
-        <div>
-            {boardComponents}
-        </div>
+  // const [cardList, setCardList] = useState([]);
+  const boards = props.boards;
+  const cardsList = [];
+  const boardComponents = [];
+  for (const board of boards) {
+    cardsList.push(props.getCards(board.id));
+  }
+  for (const board of boards) {
+    // console.log(board)
+    console.log(cardsList);
+    boardComponents.push(
+      <div>
+        <h1>{board.title}</h1>
+        <h4>{board.owner}</h4>
+        <CardList cards={cardsList} />
+      </div>
     );
+  }
+  return <div>{boardComponents}</div>;
 };
 
 Board.propTypes = {
-    board_id: PropTypes.number.isRequired,
-    title: PropTypes.string,
-    owner: PropTypes.string,
-    cards: PropTypes.array,
-    getCards: PropTypes.func
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string,
+  owner: PropTypes.string,
+  cards: PropTypes.array,
+  getCards: PropTypes.func,
 };
 
 export default Board;

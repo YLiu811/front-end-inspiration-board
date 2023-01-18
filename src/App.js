@@ -4,8 +4,6 @@ import "./App.css";
 import CardList from "./components/CardList";
 import NewCardForm from "./components/NewCardForm";
 import Board from "./components/Board";
-
-import axios from "axios";
 import NewBoardForm from "./components/NewBoardForm";
 
 const CARD_LIST = [
@@ -28,9 +26,9 @@ const test_board = {
 };
 
 function App() {
+  const [boardList, setBoardList] = useState([]);
   const [cardsList, setCardsList] = useState([]);
-
-  const URL = "http://localhost:5000/";
+  const URL = "http://127.0.0.1:5000";
 
   const fetchAllCards = () => {
     axios
@@ -89,12 +87,6 @@ function App() {
 
   console.log("App component is rendering");
 
-  console.log(test_board);
-
-  const [boardList, setBoardList] = useState([]);
-  const [cardList, setCardList] = useState([]);
-  const URL = "http://127.0.0.1:5000";
-
   useEffect(() => {
     axios
       .get(URL + "/boards")
@@ -147,12 +139,12 @@ function App() {
         <h1>Inspiration Board</h1>
         <CardList cards={cardsList} deleteCard={deleteCard} />
         <NewCardForm message="testing" addCardCallbackFunc={addCard} />
-        <Board
-          id={test_board.board_id}
+        {/* <Board
+          id={test_board.id}
           title={test_board.title}
           owner={test_board.owner}
           cards={test_board.cards}
-        />
+        /> */}
         <Board boards={boardList} getCards={getCards} />
         {/* <CardList cards={CARD_LIST} /> */}
         <NewBoardForm addBoardCallBackFunc={addBoard} />
