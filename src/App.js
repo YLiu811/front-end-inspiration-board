@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import "./App.css";
-// import CardList from "./components/CardList";
+import CardList from "./components/CardList";
 import NewCardForm from "./components/NewCardForm";
 import Board from "./components/Board";
 import NewBoardForm from "./components/NewBoardForm";
@@ -30,10 +30,12 @@ function App() {
   const [cardsList, setCardsList] = useState([]);
   const URL = "http://127.0.0.1:5000";
 
-  const fetchAllCards = () => {
+  const fetchAllCards = (boardId) => {
     axios
-      .get(URL + "/boards/1/cards") //make this get from a specific board, not just board 1.
+    
+      .get(`${URL}/boards/${boardId}/cards`)
       .then((res) => {
+        console.log(res)
         const cardsAPIResCopy = res.data.map((card) => {
           return {
             ...card,
@@ -47,45 +49,6 @@ function App() {
   };
 
   useEffect(fetchAllCards, []); //intial get request
-
-  const addCard = (newCardInfo) => {
-    //connecting to axios
-    axios
-      .post(URL + "/boards/1/cards", newCardInfo) //make this post to a specific board, not just board 1.
-      .then((response) => {
-        const newCards = [...cardsList];
-        const newCardJSON = {
-          ...newCardInfo,
-          id: response.data.id,
-        };
-        newCards.push(newCardJSON);
-        setCardsList(newCards);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log("newCardForm is working");
-  };
-
-  const deleteCard = (cardId) => {
-    console.log("deleteCard called", cardId);
-    axios
-      .delete(`${URL}/1/${cardId}`)
-      .then(() => {
-        const newCardList = [];
-        for (const card of cardsList) {
-          if (card.id !== cardId) {
-            newCardList.push(card);
-          }
-        }
-        setCardsList(newCardList);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  console.log("App component is rendering");
 
   useEffect(() => {
     axios
@@ -105,49 +68,72 @@ function App() {
       });
   }, []);
 
-  const getCards = (boardId) => {
+  const addCard = (boardId, newCardInfo) => {
+    //connecting to axios
     axios
-      .get(`${URL}/boards/${boardId}/cards`)
-      .then((res) => {
-        // console.log(res.data);
-        const cardsCopy = res.data.map((card) => {
-          return {
-            ...card,
-          };
-        });
-        console.log(cardsCopy);
+      .post(`${URL}/boards/${boardId}/cards`, newCardInfo) 
+      .then((response) => {
+        const newCards = [...cardsList];
+        const newCardJSON = {
+          ...newCardInfo,
+          id: response.data.id,
+        };
+        newCards.push(newCardJSON);
+        setCardsList(newCards);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
+    console.log("newCardForm is working");
+  };
+
+  const deleteCard = (cardId) => {
+    console.log("deleteCard called", cardId);
+    const newCardList = [];
+    for (const card of cardsList) {
+      if (card.id !== cardId) {
+        newCardList.push(card);
+      }
+    }
+    setCardsList(newCardList);
   };
 
   const addBoard = (newBoardInfo) => {
-    axios
-      .post(URL + "boards", newBoardInfo)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    axios.post(URL + "/boards")
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err.response.data)
+    })
+  }
 
+  const handleClick = (boardId) => {
+    console.log("Clicked")
+    fetchAllCards(boardId)
+  }
+  console.log("App component is rendering");
+
+  // console.log(test_board);
   return (
     <div>
       <header></header>
       <main>
         <h1>Inspiration Board</h1>
-        {/* <CardList cards={cardsList} deleteCard={deleteCard} /> */}
-        <NewCardForm message="testing" addCardCallbackFunc={addCard} />
+        <CardList
+          cards={cardsList}
+          // fetchAllCards={fetchAllCards}
+          deleteCard={deleteCard}
+          addCard={addCard}
+        />
+        {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
         {/* <Board
-          id={test_board.id}
+          id={test_board.board_id}
           title={test_board.title}
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
-        <Board boards={boardList} getCards={getCards} deleteCard={deleteCard} />
-        {/* {/* <CardList cards={CARD_LIST} /> */}
+        <Board boards={boardList} getCards={addCard} handleClick={handleClick}/>
         <NewBoardForm addBoardCallBackFunc={addBoard} />
       </main>
     </div>
