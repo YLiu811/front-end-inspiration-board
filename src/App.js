@@ -96,6 +96,16 @@ function App() {
     setCardsList(newCardList);
   };
 
+  const addBoard = (newBoardInfo) => {
+    axios.post(URL + "/boards")
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err.response.data)
+    })
+  }
+
   console.log("App component is rendering");
 
   // console.log(test_board);
@@ -116,6 +126,8 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
+        <Board boards={boardList} getCards={addCard}/>
+        <NewBoardForm addBoardCallBackFunc={addBoard} />
       </main>
     </div>
   );
