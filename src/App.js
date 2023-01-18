@@ -6,24 +6,24 @@ import NewCardForm from "./components/NewCardForm";
 import Board from "./components/Board";
 import NewBoardForm from "./components/NewBoardForm";
 
-const CARD_LIST = [
-  {
-    id: 1,
-    message: "I love you",
-    owner: "Megan",
-  },
-  {
-    id: 2,
-    message: "This is Card 2",
-    owner: "Megan",
-  },
-];
-const test_board = {
-  board_id: 1,
-  title: "Demo",
-  owner: "Sam",
-  cards: CARD_LIST,
-};
+// const CARD_LIST = [
+//   {
+//     id: 1,
+//     message: "I love you",
+//     owner: "Megan",
+//   },
+//   {
+//     id: 2,
+//     message: "This is Card 2",
+//     owner: "Megan",
+//   },
+// ];
+// const test_board = {
+//   board_id: 1,
+//   title: "Demo",
+//   owner: "Sam",
+//   cards: CARD_LIST,
+// };
 
 function App() {
   const [boardList, setBoardList] = useState([]);
