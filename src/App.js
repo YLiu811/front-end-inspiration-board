@@ -59,7 +59,7 @@ function App() {
           ...card
         }
       })
-      console.log(cardsCopy)
+      return cardsCopy
     })
     .catch((err) => {
       console.log(err);

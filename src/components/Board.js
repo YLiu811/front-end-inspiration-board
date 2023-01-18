@@ -9,19 +9,21 @@ import Card from "./Card";
 const Board = (props, getCards) => {
     // const [cardList, setCardList] = useState([]);
     const boards = props.boards;
-    // const cardsList = []
+    const cardsList = []
     const boardComponents = [];
-    // for (const board of boards) {
-    //     cardsList.push(props.getCards(board.id))
-    // }
     for (const board of boards) {
-        // console.log(board)
-        // console.log(cardsList)
+        cardsList.push(props.getCards(board.id))
+        boards['cards'] = cardsList
+    }
+    for (const board of boards) {
+        
         boardComponents.push(
             <div>
+                {/* <span>{board.id}</span> */}
                 <h1>{board.title}</h1>
                 <h4>{board.owner}</h4>
-                {/* <CardList cards={cardsList}/> */}
+                {/* <CardList cards={board.cards}/> */}
+                
             </div>
         )
     }
@@ -33,7 +35,7 @@ const Board = (props, getCards) => {
 };
 
 Board.propTypes = {
-    board_id: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string,
     owner: PropTypes.string,
     cards: PropTypes.array,

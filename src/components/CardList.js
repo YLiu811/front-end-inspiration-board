@@ -12,7 +12,7 @@ const CardList = (props) => {
     console.log("deleteCard called", cardId);
     const newCardList = [];
     for (const card of cardList) {
-      if (card.card_id !== cardId) {
+      if (card.id !== cardId) {
         newCardList.push(card);
       }
     }
@@ -22,8 +22,8 @@ const CardList = (props) => {
   const cardComponents = cardList.map((card) => {
     return (
       <Card
-        key={card.card_id}
-        card_id={card.card_id}
+        key={card.id}
+        card_id={card.id}
         message={card.message}
         owner={card.owner}
         deleteCard={deleteCard}
