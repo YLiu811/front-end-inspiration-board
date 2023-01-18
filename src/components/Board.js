@@ -6,9 +6,10 @@ import CardList from "./CardList";
 // loop through boards and get card list out, pass to cardList
 // returns h2 with title, h4 with owner, a card element for cards
 
-const Board = (props, getCards) => {
+const Board = (props) => {
   // const [cardList, setCardList] = useState([]);
   const boards = props.boards;
+  console.log(boards);
   const cardsList = [];
   const boardComponents = [];
   for (const board of boards) {

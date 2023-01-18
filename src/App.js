@@ -48,6 +48,24 @@ function App() {
 
   useEffect(fetchAllCards, []); //intial get request
 
+  useEffect(() => {
+    axios
+      .get(URL + "/boards")
+      .then((res) => {
+        const boardsAPIResCopy = res.data.map((board) => {
+          // console.log(getCards(board.board_id))
+          return {
+            ...board,
+          };
+        });
+        setBoardList(boardsAPIResCopy);
+        console.log(boardList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const addCard = (newCardInfo) => {
     //connecting to axios
     axios
@@ -87,24 +105,6 @@ function App() {
 
   console.log("App component is rendering");
 
-  useEffect(() => {
-    axios
-      .get(URL + "/boards")
-      .then((res) => {
-        const boardsAPIResCopy = res.data.map((board) => {
-          // console.log(getCards(board.board_id))
-          return {
-            ...board,
-          };
-        });
-        setBoardList(boardsAPIResCopy);
-        console.log(boardList);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   const getCards = (boardId) => {
     axios
       .get(`${URL}/boards/${boardId}/cards`)
@@ -115,7 +115,7 @@ function App() {
             ...card,
           };
         });
-        console.log(cardsCopy);
+        return cardsCopy;
       })
       .catch((err) => {
         console.log(err);
@@ -146,6 +146,7 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
+
         <Board boards={boardList} getCards={getCards} deleteCard={deleteCard} />
         {/* {/* <CardList cards={CARD_LIST} /> */}
         <NewBoardForm addBoardCallBackFunc={addBoard} />
