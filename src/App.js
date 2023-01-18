@@ -28,14 +28,17 @@ const test_board = {
 function App() {
   console.log("App component is rendering");
   
-  console.log(test_board)
+  
   const[boardList, setBoardList] = useState([])
-  const URL = 'http://127.0.0.1:5000/boards'
+  const [cardList, setCardList] = useState([])
+  const URL = 'http://127.0.0.1:5000'
 
   useEffect(() => {
-    axios.get(URL)
+    axios.get(URL + "/boards")
     .then((res) => {
+      
       const boardsAPIResCopy = res.data.map((board) => {
+        // console.log(getCards(board.board_id))
         return {
           ...board
         }
@@ -47,10 +50,26 @@ function App() {
     })
   }, [])
 
+  const getCards = (boardId) => {
+    axios.get(`${URL}/boards/${boardId}/cards`)
+    .then((res) => {
+      // console.log(res.data);
+      const cardsCopy = res.data.map((card) => {
+        return {
+          ...card
+        }
+      })
+      console.log(cardsCopy)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
   
 
   const addBoard = (newBoardInfo) => {
-    axios.post(URL, newBoardInfo)
+    axios.post(URL + "boards", newBoardInfo)
     .then((res) => {
       console.log(res)
     })
@@ -64,7 +83,7 @@ function App() {
       <header></header>
       <main>
         <h1>Inspiration Board</h1>
-        <Board boards={boardList} />
+        <Board boards={boardList} getCards={getCards}/>
         {/* <CardList cards={CARD_LIST} /> */}
         <NewBoardForm addBoardCallBackFunc={addBoard}/>
       </main>
