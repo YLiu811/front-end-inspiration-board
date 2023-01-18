@@ -9,19 +9,19 @@ import Card from "./Card";
 const Board = (props, getCards) => {
     // const [cardList, setCardList] = useState([]);
     const boards = props.boards;
-    const cardsList = []
+    // const cardsList = []
     const boardComponents = [];
-    for (const board of boards) {
-        cardsList.push(props.getCards(board.id))
-    }
+    // for (const board of boards) {
+    //     cardsList.push(props.getCards(board.id))
+    // }
     for (const board of boards) {
         // console.log(board)
-        console.log(cardsList)
+        // console.log(cardsList)
         boardComponents.push(
             <div>
                 <h1>{board.title}</h1>
                 <h4>{board.owner}</h4>
-                <CardList cards={cardsList}/>
+                {/* <CardList cards={cardsList}/> */}
             </div>
         )
     }
