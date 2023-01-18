@@ -106,6 +106,9 @@ function App() {
     })
   }
 
+  const handleClick = () => {
+    console.log("Clicked")
+  }
   console.log("App component is rendering");
 
   // console.log(test_board);
@@ -126,7 +129,7 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
-        <Board boards={boardList} getCards={addCard}/>
+        <Board boards={boardList} getCards={addCard} handleClick={handleClick}/>
         <NewBoardForm addBoardCallBackFunc={addBoard} />
       </main>
     </div>

@@ -6,7 +6,7 @@ import Card from "./Card";
 // loop through boards and get card list out, pass to cardList
 // returns h2 with title, h4 with owner, a card element for cards
 
-const Board = (props, getCards) => {
+const Board = (props) => {
     // const [cardList, setCardList] = useState([]);
     const boards = props.boards;
     const cardsList = []
@@ -20,8 +20,8 @@ const Board = (props, getCards) => {
         boardComponents.push(
             <div>
                 {/* <span>{board.id}</span> */}
-                <h1>{board.title}</h1>
-                <h4>{board.owner}</h4>
+                <h1 onClick={props.handleClick}>{board.title}</h1>
+                
                 {/* <CardList cards={board.cards}/> */}
                 
             </div>
