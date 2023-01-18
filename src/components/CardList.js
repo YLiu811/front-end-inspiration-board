@@ -1,25 +1,14 @@
-import { useState } from "react";
+// import { useState } from "react";
 import Card from "./Card.js";
 import PropTypes from "prop-types";
 
 const CardList = (props) => {
   const cards = props.cards;
-  //const deleteCard = props.deleteCard;
-  console.log(cards)
-  // const [cardList, setCardList] = useState(cards); //useState & useEffect in App.js
+  const deleteCard = props.deleteCard;
+  const fetchAllCards = props.fetchAllCards;
+  console.log(cards);
 
-  const deleteCard = (cardId) => {
-    console.log("deleteCard called", cardId);
-    const newCardList = [];
-    for (const card of cardList) {
-      if (card.id !== cardId) {
-        newCardList.push(card);
-      }
-    }
-    setCardList(newCardList);
-  };
-
-  const cardComponents = cardList.map((card) => {
+  const cardComponents = cards.map((card) => {
     return (
       <Card
         key={card.id}
@@ -42,6 +31,8 @@ CardList.propTypes = {
       owner: PropTypes.string,
     })
   ),
+  deleteCard: PropTypes.func.isRequired,
+  fetchAllCards: PropTypes.func.isRequired,
 };
 
 export default CardList;
