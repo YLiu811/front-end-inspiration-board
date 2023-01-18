@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import "./App.css";
-import CardList from "./components/CardList";
+// import CardList from "./components/CardList";
 import NewCardForm from "./components/NewCardForm";
 import Board from "./components/Board";
 import NewBoardForm from "./components/NewBoardForm";
@@ -98,6 +98,7 @@ function App() {
           };
         });
         setBoardList(boardsAPIResCopy);
+        console.log(boardList);
       })
       .catch((err) => {
         console.log(err);
@@ -137,7 +138,7 @@ function App() {
       <header></header>
       <main>
         <h1>Inspiration Board</h1>
-        <CardList cards={cardsList} deleteCard={deleteCard} />
+        {/* <CardList cards={cardsList} deleteCard={deleteCard} /> */}
         <NewCardForm message="testing" addCardCallbackFunc={addCard} />
         {/* <Board
           id={test_board.id}
@@ -145,8 +146,8 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
-        <Board boards={boardList} getCards={getCards} />
-        {/* <CardList cards={CARD_LIST} /> */}
+        <Board boards={boardList} getCards={getCards} deleteCard={deleteCard} />
+        {/* {/* <CardList cards={CARD_LIST} /> */}
         <NewBoardForm addBoardCallBackFunc={addBoard} />
       </main>
     </div>
