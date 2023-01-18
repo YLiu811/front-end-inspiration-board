@@ -1,29 +1,29 @@
-import "./App.css";
-import CardList from "./components/CardList";
-import Board from "./components/Board";
-import {useState} from 'react'
 import axios from "axios";
+import { useState, useEffect } from "react";
+import "./App.css";
+// import CardList from "./components/CardList";
+import NewCardForm from "./components/NewCardForm";
+import Board from "./components/Board";
 import NewBoardForm from "./components/NewBoardForm";
-import { useEffect } from "react";
 
-const CARD_LIST = [
-  {
-    card_id: 1,
-    message: "I love you",
-    owner: "Megan",
-  },
-  {
-    card_id: 2,
-    message: "I love you",
-    owner: "Megan",
-  },
-];
-const test_board = {
-    board_id: 1,
-    title: "Demo",
-    owner: "Sam",
-    cards: CARD_LIST
-}
+// const CARD_LIST = [
+//   {
+//     id: 1,
+//     message: "I love you",
+//     owner: "Megan",
+//   },
+//   {
+//     id: 2,
+//     message: "This is Card 2",
+//     owner: "Megan",
+//   },
+// ];
+// const test_board = {
+//   board_id: 1,
+//   title: "Demo",
+//   owner: "Sam",
+//   cards: CARD_LIST,
+// };
 
 function App() {
   const [boardList, setBoardList] = useState([]);
@@ -47,6 +47,24 @@ function App() {
   };
 
   useEffect(fetchAllCards, []); //intial get request
+
+  useEffect(() => {
+    axios
+      .get(URL + "/boards")
+      .then((res) => {
+        const boardsAPIResCopy = res.data.map((board) => {
+          // console.log(getCards(board.board_id))
+          return {
+            ...board,
+          };
+        });
+        setBoardList(boardsAPIResCopy);
+        console.log(boardList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const addCard = (newCardInfo) => {
     //connecting to axios
@@ -87,24 +105,6 @@ function App() {
 
   console.log("App component is rendering");
 
-  useEffect(() => {
-    axios
-      .get(URL + "/boards")
-      .then((res) => {
-        const boardsAPIResCopy = res.data.map((board) => {
-          // console.log(getCards(board.board_id))
-          return {
-            ...board,
-          };
-        });
-        setBoardList(boardsAPIResCopy);
-        console.log(boardList);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   const getCards = (boardId) => {
     axios
       .get(`${URL}/boards/${boardId}/cards`)
@@ -115,7 +115,7 @@ function App() {
             ...card,
           };
         });
-        console.log(cardsCopy);
+        return cardsCopy;
       })
       .catch((err) => {
         console.log(err);
@@ -123,14 +123,15 @@ function App() {
   };
 
   const addBoard = (newBoardInfo) => {
-    axios.post(URL + "boards", newBoardInfo)
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
+    axios
+      .post(URL + "boards", newBoardInfo)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -145,6 +146,7 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
+
         <Board boards={boardList} getCards={getCards} deleteCard={deleteCard} />
         {/* {/* <CardList cards={CARD_LIST} /> */}
         <NewBoardForm addBoardCallBackFunc={addBoard} />

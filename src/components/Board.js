@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import CardList from "./CardList";
-// import { useState } from "react";
-// import Card from "./Card";
+import { useState } from "react";
+import Card from "./Card";
 
 // loop through boards and get card list out, pass to cardList
 // returns h2 with title, h4 with owner, a card element for cards
@@ -22,7 +22,7 @@ const Board = (props) => {
       <div>
         <h1>{board.title}</h1>
         <h4>{board.owner}</h4>
-        <CardList cards={cardsList} deleteCard={props.deleteCard} />
+        <CardList cards={cardsList} />
       </div>
     );
   }
@@ -35,7 +35,6 @@ Board.propTypes = {
   owner: PropTypes.string,
   cards: PropTypes.array,
   getCards: PropTypes.func,
-  deleteCard: PropTypes.func,
 };
 
 export default Board;
