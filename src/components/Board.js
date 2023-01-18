@@ -20,8 +20,12 @@ const Board = (props) => {
         boardComponents.push(
             <div>
                 {/* <span>{board.id}</span> */}
-                <h1 onClick={props.handleClick}>{board.title}</h1>
-                
+                <h1 onClick={()=>props.handleClick(board.id)}>{board.title}</h1>
+                {/* save the id of the board that we click on
+                run fetchAllCards with that id  */}
+                {/* handleClick needs to accept id of board using board.id */}
+
+
                 {/* <CardList cards={board.cards}/> */}
                 
             </div>

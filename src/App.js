@@ -30,10 +30,12 @@ function App() {
   const [cardsList, setCardsList] = useState([]);
   const URL = "http://127.0.0.1:5000";
 
-  const fetchAllCards = () => {
+  const fetchAllCards = (boardId) => {
     axios
-      .get(URL + "/boards/1/cards") //make this get from a specific board, not just board 1.
+    
+      .get(`${URL}/boards/${boardId}/cards`) //make this get from a specific board, not just board 1.
       .then((res) => {
+        console.log(res)
         const cardsAPIResCopy = res.data.map((card) => {
           return {
             ...card,
@@ -106,8 +108,9 @@ function App() {
     })
   }
 
-  const handleClick = () => {
+  const handleClick = (boardId) => {
     console.log("Clicked")
+    fetchAllCards(boardId)
   }
   console.log("App component is rendering");
 
