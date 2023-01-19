@@ -5,6 +5,7 @@ import CardList from "./components/CardList";
 import NewCardForm from "./components/NewCardForm";
 import Board from "./components/Board";
 import NewBoardForm from "./components/NewBoardForm";
+import "./App.css";
 
 // const CARD_LIST = [
 //   {
@@ -32,10 +33,10 @@ function App() {
 
   const fetchAllCards = (boardId) => {
     axios
-    
+
       .get(`${URL}/boards/${boardId}/cards`)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         const cardsAPIResCopy = res.data.map((card) => {
           return {
             ...card,
@@ -71,7 +72,7 @@ function App() {
   const addCard = (boardId, newCardInfo) => {
     //connecting to axios
     axios
-      .post(`${URL}/boards/${boardId}/cards`, newCardInfo) 
+      .post(`${URL}/boards/${boardId}/cards`, newCardInfo)
       .then((response) => {
         const newCards = [...cardsList];
         const newCardJSON = {
@@ -99,19 +100,20 @@ function App() {
   };
 
   const addBoard = (newBoardInfo) => {
-    axios.post(URL + "/boards")
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((err) => {
-      console.log(err.response.data)
-    })
-  }
+    axios
+      .post(URL + "/boards")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
 
   const handleClick = (boardId) => {
-    console.log("Clicked")
-    fetchAllCards(boardId)
-  }
+    console.log("Clicked");
+    fetchAllCards(boardId);
+  };
   console.log("App component is rendering");
 
   // console.log(test_board);
@@ -119,13 +121,21 @@ function App() {
     <div>
       <header></header>
       <main>
-        <h1>Inspiration Board</h1>
-        <CardList
-          cards={cardsList}
-          // fetchAllCards={fetchAllCards}
-          deleteCard={deleteCard}
-          addCard={addCard}
-        />
+        <div className="title-container">
+          <h1 className="inspo-board-title">Inspiration Board</h1>
+        </div>
+        <div className="cards-display">
+          <CardList
+            cards={cardsList}
+            // fetchAllCards={fetchAllCards}
+            deleteCard={deleteCard}
+            addCard={addCard}
+          />
+        </div>
+        <div className="card-form">
+          <NewCardForm />
+        </div>
+
         {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
         {/* <Board
           id={test_board.board_id}
@@ -133,8 +143,16 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
-        <Board boards={boardList} getCards={addCard} handleClick={handleClick}/>
-        <NewBoardForm addBoardCallBackFunc={addBoard} />
+        <div className="board-container">
+          <Board
+            boards={boardList}
+            getCards={addCard}
+            handleClick={handleClick}
+          />
+        </div>
+        <div className="board-form">
+          <NewBoardForm addBoardCallBackFunc={addBoard} />
+        </div>
       </main>
     </div>
   );

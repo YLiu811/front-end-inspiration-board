@@ -2,6 +2,7 @@
 import Card from "./Card.js";
 import PropTypes from "prop-types";
 import NewCardForm from "./NewCardForm.js";
+import "./CardList.css"
 
 const CardList = (props) => {
   const cards = props.cards;
@@ -22,10 +23,12 @@ const CardList = (props) => {
     );
   });
 
-  return <div className="cardList">
-    {cardComponents}
-    <NewCardForm message="testing" addCardCallbackFunc={addCard} />
-    </div>;
+  return (
+    <div className="card-list">
+      {cardComponents}
+      {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
+    </div>
+  );
 };
 
 CardList.propTypes = {

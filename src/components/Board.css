@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+.board-text-display {
+    font-family: 'Roboto Mono', monospace;
+    font-size: small;
+}

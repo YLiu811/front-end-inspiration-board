@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import "./Card.css";
 
 //import css here.
 
@@ -15,8 +16,9 @@ function Card(props) {
   console.log(likes);
 
   return (
-    <div>
-      <h1 id="message">{message}</h1>
+    <section className="card-box">    
+    <div className="card-alignment">
+      <h1 id="card-message">{message}</h1>
       <button
         id="add_like_button"
         onClick={() => {
@@ -35,6 +37,8 @@ function Card(props) {
       </button>
       <p id="like_counter">{likes}💕</p>
     </div>
+  </section>
+
   );
 }
 
