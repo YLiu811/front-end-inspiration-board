@@ -18,7 +18,8 @@ main {
 }
 
 .board-form {
-  grid-area: 3/8
+  display: flex;
+  grid-area: 3/8/7/9;
 }
 
 .card-form {
@@ -44,11 +45,6 @@ main {
   font-family: 'Roboto Mono', monospace;
   font-size: large;
   color: #0cbced;
-}
-
-.cards-display {
-  display: grid;
-  grid-area: 6/1/6/11;
 }
 
 

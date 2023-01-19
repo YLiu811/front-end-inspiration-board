@@ -124,14 +124,12 @@ function App() {
         <div className="title-container">
           <h1 className="inspo-board-title">Inspiration Board</h1>
         </div>
-        <div className="cards-display">
           <CardList
             cards={cardsList}
             // fetchAllCards={fetchAllCards}
             deleteCard={deleteCard}
             addCard={addCard}
           />
-        </div>
         <div className="card-form">
           <NewCardForm />
         </div>

@@ -2,15 +2,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
 
 #card-message {
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    grid-column-start: 2;
+    justify-content: center;
     font-family: 'Roboto Mono', monospace;
     font-size: large;
 }
 
 .card-box {
-    grid-template-columns: repeat(4, 25%);
-    grid-template-rows: repeat(4, 25%);
-    display: grid;
-    justify-items: stretch;
+    display: flex;
     border-style: solid;
     border-width: thin;
     border-color: rgb(135, 135, 135);
@@ -18,8 +21,34 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
+.likecount {
+    display: flex;
+    justify-content: center;
+}
+
+.delete {
+    display: flex;
+    justify-content: center;
+}
+
+.add1 {
+    display: flex;
+    justify-content: center;
+}
+
+#like_counter {
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    grid-column-start: 2;
+    justify-content: center;
+    font-family: 'Roboto Mono', monospace;
+    font-size: large;
+}
+
+
 button {
-    display: grid;
     appearance: button;
     background-color: #FA8BFF;
     background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 90%);
@@ -33,7 +62,7 @@ button {
     font-family: 'Roboto Mono', monospace;
     font-size: 14px;
     font-weight: 900;
-    line-height: 20px;
+    line-height: 0px;
     margin: 0 5px 10px 0;
     overflow: visible;
     padding: 12px 40px;
@@ -46,19 +75,6 @@ button {
     white-space: nowrap;
 }
 
-button:focus {
-    text-decoration: none;
-}
-
-button:hover {
-    text-decoration: none;
-}
-
-button:active {
-    box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
-    outline: 0;
-}
-
 button:not([disabled]):active {
     box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px;
     transform: translate(2px, 2px);
@@ -66,7 +82,7 @@ button:not([disabled]):active {
 
 @media (min-width: 768px) {
     button {
-        padding: 12px 50px;
+        padding: 15px 10px;
     }
 }
 

@@ -24,10 +24,13 @@ const CardList = (props) => {
   });
 
   return (
-    <div className="card-list">
-      {cardComponents}
-      {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
-    </div>
+      <div className="card-list">
+        <div className="card-align">
+          {cardComponents}
+        </div>
+        {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
+      </div>
+
   );
 };
 
