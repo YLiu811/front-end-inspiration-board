@@ -35,7 +35,17 @@ function App() {
     owner: null,
     cards: [],
   });
+  const [formStatus, setFormStatus] = useState("");
+
   const URL = "https://duckies-inspo-board.herokuapp.com";
+
+  const toggleForm = () => {
+    if (!formStatus) {
+      setFormStatus("hidden");
+    } else {
+      setFormStatus("");
+    }
+  };
 
   const onBoardSelect = (selectedBoard) => {
     axios
@@ -116,23 +126,21 @@ function App() {
   // const [likeCardCount, setLikeCardCount] = useState();
 
   const addLikes = (cardId, likes) => {
-        // setLikeCardCount(card.likes_count);
-    axios
-      .patch(`${URL}/cards/${cardId}/${likes+1}`)
-      .then((response) => {
-        const newCardList = [];
-        for (const card of selectedBoard.cards) {
-          if (card.id !== cardId) {
-            newCardList.push(card);
-          } else if (card.id === cardId) {
-              console.log("addLikes called");
-              card.likes_count += 1;
-              newCardList.push(response.data);
-          }
+    // setLikeCardCount(card.likes_count);
+    axios.patch(`${URL}/cards/${cardId}/${likes + 1}`).then((response) => {
+      const newCardList = [];
+      for (const card of selectedBoard.cards) {
+        if (card.id !== cardId) {
+          newCardList.push(card);
+        } else if (card.id === cardId) {
+          console.log("addLikes called");
+          card.likes_count += 1;
+          newCardList.push(response.data);
         }
-        setSelectedBoard({ ...selectedBoard, cards: newCardList });
-      });
-    }
+      }
+      setSelectedBoard({ ...selectedBoard, cards: newCardList });
+    });
+  };
 
   // const handleClick = (boardId) => {
   //   console.log("Clicked");
@@ -174,9 +182,12 @@ function App() {
             <div className="card-form">
               <NewCardForm addCard={addCard} />
             </div>
-            <div className="board-form">
+            <div className={formStatus}>
               <NewBoardForm addBoardCallBackFunc={addBoard} />
             </div>
+            <button type="button" onClick={toggleForm}>
+              Toggle Board Form
+            </button>
           </div>
         </section>
       </main>

@@ -42,4 +42,8 @@ main {
   color: #0cbced;
 }
 
+.hidden {
+  display: none;
+}
+
 
