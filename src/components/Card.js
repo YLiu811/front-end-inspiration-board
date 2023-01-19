@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import "./Card.css";
 
 //import css here.
 
@@ -15,8 +16,10 @@ function Card(props) {
   console.log(likes);
 
   return (
-    <div>
-      <h1 id="message">{message}</h1>
+  <section className="card-box">    
+    <div className="card-alignment">
+      <h1 id="card-message">{message}</h1>
+    <div className="add1">
       <button
         id="add_like_button"
         onClick={() => {
@@ -25,6 +28,8 @@ function Card(props) {
       >
         +1
       </button>
+    </div>
+    <div className="delete">
       <button
         id="delete_card_button"
         onClick={() => {
@@ -33,8 +38,14 @@ function Card(props) {
       >
         Delete
       </button>
-      <p id="like_counter">{likes}💕</p>
     </div>
+
+    <div className="likecount"> 
+      <p id="like_counter">{likes}💕</p>
+    </div>  
+    </div>
+  </section>
+
   );
 }
 

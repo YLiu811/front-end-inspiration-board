@@ -1,52 +1,61 @@
 import { useState } from "react";
+import "./NewBoardForm.css"
+
 
 const INITIAL_FORM_DATA = {
-    title: "Inspo Board Title",
-    owner: "Inspo Board Owner"
-}
+  title: "Inspo Board Title",
+  owner: "Inspo Board Owner",
+};
 
 const NewBoardForm = (props) => {
-    const [formData, setFormData] = useState(INITIAL_FORM_DATA)
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
-    const handleChange = (e) => {
-        console.log('Handling the change');
-        const newFormData = {
-            ...formData,
-            [e.target.name]: e.target.value
-        }
-        setFormData(newFormData);
+  const handleChange = (e) => {
+    console.log("Handling the change");
+    const newFormData = {
+      ...formData,
+      [e.target.name]: e.target.value,
     };
+    setFormData(newFormData);
+  };
 
-    const handleNewBoardSubmit = (e) => {
-        e.preventDefault();
-        props.addBoardCallBackFunc(formData);
-    }
+  const handleNewBoardSubmit = (e) => {
+    e.preventDefault();
+    props.addBoardCallBackFunc(formData);
+  };
 
-    return(
-        <form onSubmit={handleNewBoardSubmit}>
-            <label htmlFor='title'>Board Title</label>
-            <input
-                type='text'
-                id='title'
-                name='title'
-                value={formData.title}
-                onChange={handleChange}
-            />
-            <label htmlFor='owner'>Board Owner</label>
-            <input
-                type='text'
-                id='owner'
-                name='owner'
-                value={formData.owner}
-                onChange={handleChange}
-            />
+  return (
+    <div className="board-form-box">
+      <form onSubmit={handleNewBoardSubmit}>
+      <label htmlFor="title" className="text-form">
+        Board Title
+      </label>
+      <br />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        value={formData.title}
+        onChange={handleChange}
+      />
+      <br />
+      <label htmlFor="owner" className="text-form">
+        Board Owner
+      </label>
+      <br />
+      <input
+        type="text"
+        id="owner"
+        name="owner"
+        value={formData.owner}
+        onChange={handleChange}
+      />
+      <br />
+      <input type="submit" value="Add Board" className="button"/>
+    </form>
+    </div>
 
-            <input
-                type='submit'
-                value='Add Board'
-            />
-        </form>
-    );
-}
+  );
+};
 
 export default NewBoardForm;
