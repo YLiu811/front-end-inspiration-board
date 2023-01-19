@@ -19,7 +19,7 @@ function Card(props) {
           <button
             id="add_like_button"
             onClick={() => {
-              addLikes(id);
+              addLikes(id, likes);
               // setLikeCard(likes + 1);
             }}
           >

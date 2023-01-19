@@ -35,7 +35,7 @@ function App() {
     owner: null,
     cards: [],
   });
-  const URL = "http://127.0.0.1:5000";
+  const URL = "https://duckies-inspo-board.herokuapp.com";
 
   const onBoardSelect = (selectedBoard) => {
     axios
@@ -115,24 +115,24 @@ function App() {
 
   // const [likeCardCount, setLikeCardCount] = useState();
 
-  const addLikes = (cardId) => {
-    const newCardList = [];
-    for (const card of selectedBoard.cards) {
-      if (card.id !== cardId) {
-        newCardList.push(card);
-      } else if (card.id === cardId) {
-        console.log("addLikes called");
-        card.likes_count += 1;
+  const addLikes = (cardId, likes) => {
         // setLikeCardCount(card.likes_count);
-        axios
-          .patch(`${URL}/cards/${cardId}/${card.likes_count}`)
-          .then((response) => {
-            newCardList.push(response.data);
-          });
-      }
+    axios
+      .patch(`${URL}/cards/${cardId}/${likes+1}`)
+      .then((response) => {
+        const newCardList = [];
+        for (const card of selectedBoard.cards) {
+          if (card.id !== cardId) {
+            newCardList.push(card);
+          } else if (card.id === cardId) {
+              console.log("addLikes called");
+              card.likes_count += 1;
+              newCardList.push(response.data);
+          }
+        }
+        setSelectedBoard({ ...selectedBoard, cards: newCardList });
+      });
     }
-    setSelectedBoard({ ...selectedBoard, cards: newCardList });
-  };
 
   // const handleClick = (boardId) => {
   //   console.log("Clicked");
