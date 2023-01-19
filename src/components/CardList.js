@@ -6,7 +6,7 @@ const CardList = (props) => {
   const cards = props.cards
   const deleteCard = props.deleteCard
   const likeCard = props.likeCard
-  console.log(props.cards)
+  // console.log(props.cards)
   const cardsList = cards.map((card) => {
     return (
       <div key={card.id}>

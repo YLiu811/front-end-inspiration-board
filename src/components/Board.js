@@ -7,8 +7,9 @@ import PropTypes from "prop-types";
 function Board(props){
     const boards = props.boards;
     const boardComponents = []
-
+    console.log(boards)
     for (const board of boards){
+        console.log(board)
         boardComponents.push(
             <h1 
             key={board.id}

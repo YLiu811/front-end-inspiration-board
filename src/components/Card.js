@@ -12,7 +12,7 @@ function Card(props) {
   //to do: wrap this in a function.
   const [likes, setLikes] = useState(0); //make props.likes later!!
 
-  console.log(likes);
+  // console.log(likes);
 
   return (
     <div>

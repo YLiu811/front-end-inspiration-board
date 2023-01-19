@@ -59,7 +59,7 @@ function App() {
         ...selectedBoard,
         cards: res.data
       })
-      console.log(selectedBoard)
+      // console.log(selectedBoard)
     })
     .catch((err) => {
       console.log(err)
@@ -67,13 +67,14 @@ function App() {
   }
 
   const addBoard = (newBoardInfo) => {
+    console.log(newBoardInfo)
     axios.post(`${URL}/boards`, newBoardInfo)
     .then((res) => {
       console.log(res.data)
       const newBoardList = [...boardList]
       const newBoardJSON={
         ...newBoardInfo,
-        "id": res.data.id
+        
       }
       newBoardList.push(newBoardJSON)
       setBoardList(newBoardList)
@@ -89,7 +90,7 @@ function App() {
     .then((res) => {
       const newCardList = [...selectedBoard.cards]
       newCardList.push(res.data)
-      setBoardList({...selectedBoard, cards:newCardList})
+      setSelectedBoard({...selectedBoard, cards:newCardList})
     })
     .catch((err) => {
       console.log(err)
@@ -127,7 +128,7 @@ function App() {
     axios.patch(`${URL}/cards/${cardLiked.id}/${cardLiked.likes_count}`)
   }
 
-  const [formStatus, setFormStatus] = useState("hidden")
+  const [formStatus, setFormStatus] = useState("")
   const toggleForm = () => {
     console.log("trying to hide")
     if (!formStatus) {
@@ -159,15 +160,19 @@ function App() {
           <Board 
           boards={boardList} 
           onBoardSelect={onBoardSelect}/>
-          <section id="selected-board">
-            <h1>{selectedBoard.title}</h1>
+          <section>
+            <h1>Selected Board</h1>
+            <section id="selected-board">
+              <h1>{selectedBoard.title} - {selectedBoard.owner}</h1>
+            </section>
           </section>
+            
 
           <section className={formStatus}>
             <NewBoardForm 
             addBoardCallBackFunc={addBoard} />
-             <button type="button" onClick={toggleForm}>Hide Board Form</button>
           </section>
+          <button type="button" onClick={toggleForm}>Toggle Board Form</button>
           
         </section>
         

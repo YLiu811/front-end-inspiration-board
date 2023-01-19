@@ -31,6 +31,7 @@ const NewBoardForm = (props) => {
                 name='title'
                 value={formData.title}
                 onChange={handleChange}
+                
             />
             <label htmlFor='owner'>Board Owner</label>
             <input
@@ -39,6 +40,7 @@ const NewBoardForm = (props) => {
                 name='owner'
                 value={formData.owner}
                 onChange={handleChange}
+                
             />
 
             <input
