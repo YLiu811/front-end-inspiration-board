@@ -2,12 +2,13 @@
 import Card from "./Card.js";
 import PropTypes from "prop-types";
 import NewCardForm from "./NewCardForm.js";
-import "./CardList.css"
+import "./CardList.css";
 
 const CardList = (props) => {
   const cards = props.cards;
   const deleteCard = props.deleteCard;
-  const addCard = props.addCard;
+  const addLikes = props.addLikes;
+  // const addCard = props.addCard;
   // const fetchAllCards = props.fetchAllCards;
   console.log(cards);
 
@@ -17,20 +18,18 @@ const CardList = (props) => {
         key={card.id}
         id={card.id}
         message={card.message}
-        owner={card.owner}
+        likes={card.likes_count}
         deleteCard={deleteCard}
+        addLikes={addLikes}
       />
     );
   });
 
   return (
-      <div className="card-list">
-        <div className="card-align">
-          {cardComponents}
-        </div>
-        {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
-      </div>
-
+    <div className="card-list">
+      <div className="card-align">{cardComponents}</div>
+      {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
+    </div>
   );
 };
 
@@ -43,8 +42,8 @@ CardList.propTypes = {
     })
   ),
   deleteCard: PropTypes.func.isRequired,
-  fetchAllCards: PropTypes.func.isRequired,
-  addCard: PropTypes.func.isRequired,
+  // fetchAllCards: PropTypes.func.isRequired,
+  // addCard: PropTypes.func.isRequired,
 };
 
 export default CardList;

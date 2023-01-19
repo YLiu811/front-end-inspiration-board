@@ -28,28 +28,31 @@ import "./App.css";
 
 function App() {
   const [boardList, setBoardList] = useState([]);
-  const [cardsList, setCardsList] = useState([]);
+  // const [cardsList, setCardsList] = useState([]);
+  const [selectedBoard, setSelectedBoard] = useState({
+    id: null,
+    title: null,
+    owner: null,
+    cards: [],
+  });
   const URL = "http://127.0.0.1:5000";
 
-  const fetchAllCards = (boardId) => {
+  const onBoardSelect = (selectedBoard) => {
     axios
-
-      .get(`${URL}/boards/${boardId}/cards`)
+      .get(`${URL}/boards/${selectedBoard.id}/cards`)
       .then((res) => {
         console.log(res);
-        const cardsAPIResCopy = res.data.map((card) => {
-          return {
-            ...card,
-          };
+        setSelectedBoard({
+          ...selectedBoard,
+          cards: res.data,
         });
-        setCardsList(cardsAPIResCopy);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  useEffect(fetchAllCards, []); //intial get request
+  // useEffect(fetchAllCards, []); //intial get request
 
   useEffect(() => {
     axios
@@ -69,18 +72,14 @@ function App() {
       });
   }, []);
 
-  const addCard = (boardId, newCardInfo) => {
+  const addCard = (newCardInfo) => {
     //connecting to axios
     axios
-      .post(`${URL}/boards/${boardId}/cards`, newCardInfo)
+      .post(`${URL}/boards/${selectedBoard.id}/cards`, newCardInfo)
       .then((response) => {
-        const newCards = [...cardsList];
-        const newCardJSON = {
-          ...newCardInfo,
-          id: response.data.id,
-        };
-        newCards.push(newCardJSON);
-        setCardsList(newCards);
+        const newCards = [...selectedBoard.cards];
+        newCards.push(response.data);
+        setSelectedBoard({ ...selectedBoard, cards: newCards });
       })
       .catch((error) => {
         console.log(error);
@@ -89,31 +88,44 @@ function App() {
   };
 
   const deleteCard = (cardId) => {
-    console.log("deleteCard called", cardId);
-    const newCardList = [];
-    for (const card of cardsList) {
-      if (card.id !== cardId) {
-        newCardList.push(card);
+    axios.delete(`${URL}/cards/${cardId}`).then(() => {
+      const newCardList = [];
+      for (const card of selectedBoard.cards) {
+        if (card.id !== cardId) {
+          newCardList.push(card);
+        }
       }
-    }
-    setCardsList(newCardList);
+      setSelectedBoard({ ...selectedBoard, cards: newCardList });
+    });
   };
 
   const addBoard = (newBoardInfo) => {
     axios
-      .post(URL + "/boards")
+      .post(URL + "/boards", newBoardInfo)
       .then((res) => {
-        console.log(res);
+        const newBoardList = [...boardList];
+        const newBoardJSON = { ...newBoardInfo };
+        newBoardList.push(newBoardJSON);
+        setBoardList(newBoardList);
       })
       .catch((err) => {
         console.log(err.response.data);
       });
   };
 
-  const handleClick = (boardId) => {
-    console.log("Clicked");
-    fetchAllCards(boardId);
+  const addLikes = (cardId) => {
+    for (const card of selectedBoard.cards) {
+      if (card.id === cardId) {
+        card.likes_count += 1;
+        axios.patch(`${URL}/cards/${cardId}/${card.likes_count}`);
+      }
+    }
   };
+
+  // const handleClick = (boardId) => {
+  //   console.log("Clicked");
+  //   fetchAllCards(boardId);
+  // };
   console.log("App component is rendering");
 
   // console.log(test_board);
@@ -124,13 +136,12 @@ function App() {
         <div className="title-container">
           <h1 className="inspo-board-title">🐥 The Rubber Duckies 🫧</h1>
         </div>
-          <CardList
-            cards={cardsList}
-            // fetchAllCards={fetchAllCards}
-            deleteCard={deleteCard}
-            addCard={addCard}
-          />
-
+        <CardList
+          cards={selectedBoard.cards}
+          // fetchAllCards={fetchAllCards}
+          deleteCard={deleteCard}
+          addLikes={addLikes}
+        />
 
         {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
         {/* <Board
@@ -140,26 +151,22 @@ function App() {
           cards={test_board.cards}
         /> */}
 
-
         <Board
           boards={boardList}
-          getCards={addCard}
-          handleClick={handleClick}
+          // getCards={addCard}
+          onBoardSelect={onBoardSelect}
         />
 
-      <section className="upper-box-grid">
-        <div className="upper-box-container">
-
-          <div className="card-form">
-            <NewCardForm />
+        <section className="upper-box-grid">
+          <div className="upper-box-container">
+            <div className="card-form">
+              <NewCardForm addCard={addCard} />
+            </div>
+            <div className="board-form">
+              <NewBoardForm addBoardCallBackFunc={addBoard} />
+            </div>
           </div>
-          <div className="board-form">
-            <NewBoardForm addBoardCallBackFunc={addBoard} />
-          </div>
-        </div>
-
-      </section>
-
+        </section>
       </main>
     </div>
   );
