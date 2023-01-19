@@ -7,6 +7,7 @@ import "./Card.css";
 function Card(props) {
   const id = props.id;
   const message = props.message;
+  const likes = props.likes;
   const addLikes = props.addLikes;
   const deleteCard = props.deleteCard;
 
@@ -19,6 +20,7 @@ function Card(props) {
             id="add_like_button"
             onClick={() => {
               addLikes(id);
+              // setLikeCard(likes + 1);
             }}
           >
             +1
@@ -34,9 +36,8 @@ function Card(props) {
             Delete
           </button>
         </div>
-
         <div className="likecount">
-          <p id="like_counter">{props.likes}💕</p>
+          <p id="like_counter">{likes}💕</p>
         </div>
       </div>
     </section>
@@ -46,6 +47,7 @@ function Card(props) {
 Card.propTypes = {
   id: PropTypes.number.isRequired,
   message: PropTypes.string,
+  likes: PropTypes.number,
   addLikes: PropTypes.func,
   deleteCard: PropTypes.func,
 };

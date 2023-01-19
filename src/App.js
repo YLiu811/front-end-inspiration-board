@@ -113,13 +113,25 @@ function App() {
       });
   };
 
+  // const [likeCardCount, setLikeCardCount] = useState();
+
   const addLikes = (cardId) => {
+    const newCardList = [];
     for (const card of selectedBoard.cards) {
-      if (card.id === cardId) {
+      if (card.id !== cardId) {
+        newCardList.push(card);
+      } else if (card.id === cardId) {
+        console.log("addLikes called");
         card.likes_count += 1;
-        axios.patch(`${URL}/cards/${cardId}/${card.likes_count}`);
+        // setLikeCardCount(card.likes_count);
+        axios
+          .patch(`${URL}/cards/${cardId}/${card.likes_count}`)
+          .then((response) => {
+            newCardList.push(response.data);
+          });
       }
     }
+    setSelectedBoard({ ...selectedBoard, cards: newCardList });
   };
 
   // const handleClick = (boardId) => {

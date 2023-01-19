@@ -13,6 +13,7 @@ const CardList = (props) => {
   console.log(cards);
 
   const cardComponents = cards.map((card) => {
+    console.log(card.likes_count);
     return (
       <Card
         key={card.id}
