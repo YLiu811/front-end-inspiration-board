@@ -21,7 +21,7 @@ const NewCardForm = (props) => {
 
   const handleNewCardSubmit = (e) => {
     e.preventDefault();
-    props.addCardCallbackFunc(cardFormData);
+    props.addCard(cardFormData);
   };
   return (
     <form onSubmit={handleNewCardSubmit}>
@@ -37,11 +37,11 @@ const NewCardForm = (props) => {
         onChange={handleChange}
       />
       <br />
-      <input type="submit" value="Add Card"/>
+      <input type="submit" value="Add Card" />
     </form>
   );
 };
 NewCardForm.propTypes = {
-  addCardCallbackFunc: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
 };
 export default NewCardForm;
