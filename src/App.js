@@ -122,7 +122,7 @@ function App() {
       <header></header>
       <main>
         <div className="title-container">
-          <h1 className="inspo-board-title">Inspiration Board</h1>
+          <h1 className="inspo-board-title">✧  ･ﾟ Inspiration Board  ･ﾟ ✧</h1>
         </div>
           <CardList
             cards={cardsList}
@@ -139,15 +139,17 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
+
+
+        <Board
+          boards={boardList}
+          getCards={addCard}
+          handleClick={handleClick}
+        />
+
       <section className="upper-box-grid">
         <div className="upper-box-container">
-          <div className="board-container">
-            <Board
-              boards={boardList}
-              getCards={addCard}
-              handleClick={handleClick}
-            />
-          </div>
+
           <div className="card-form">
             <NewCardForm />
           </div>

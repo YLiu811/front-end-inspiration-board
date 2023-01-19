@@ -16,11 +16,7 @@ main {
 .upper-box-grid {
   display: grid;
   grid-template-columns: repeat(5, 25%);
-  grid-area: 4/1/4/11;
-}
-
-.board-container {
-  font-size: small;
+  grid-area: 4/5/4/11;
 }
 
 .upper-box-container {
