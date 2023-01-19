@@ -9,7 +9,7 @@ const INITIAL_FORM_DATA = {
 
 const NewCardForm = (props) => {
   const [cardFormData, setCardFormData] = useState(INITIAL_FORM_DATA);
-
+  const boardId = props.boardId
   const handleChange = (e) => {
     let datafield = e.target.value;
     const newCardFormData = {

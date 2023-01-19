@@ -1,31 +1,22 @@
-// import { useState } from "react";
+
 import Card from "./Card.js";
 import PropTypes from "prop-types";
-import NewCardForm from "./NewCardForm.js";
 
 const CardList = (props) => {
-  const cards = props.cards;
-  const deleteCard = props.deleteCard;
-  const addCard = props.addCard;
-  // const fetchAllCards = props.fetchAllCards;
-  console.log(cards);
-
-  const cardComponents = cards.map((card) => {
+  const cards = props.cards
+  const deleteCard = props.deleteCard
+  const likeCard = props.likeCard
+  console.log(props.cards)
+  const cardsList = cards.map((card) => {
     return (
-      <Card
-        key={card.id}
-        id={card.id}
-        message={card.message}
-        owner={card.owner}
-        deleteCard={deleteCard}
-      />
-    );
-  });
-
-  return <div className="cardList">
-    {cardComponents}
-    <NewCardForm message="testing" addCardCallbackFunc={addCard} />
-    </div>;
+      <div key={card.id}>
+        <Card message={card.message} id={card.id} deleteCard={deleteCard} likeCard={likeCard}/>
+      </div>
+    )
+  })
+  return <div>
+    {cardsList}
+  </div>
 };
 
 CardList.propTypes = {
@@ -33,12 +24,11 @@ CardList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       message: PropTypes.string,
-      owner: PropTypes.string,
+      // owner: PropTypes.string,
     })
   ),
   deleteCard: PropTypes.func.isRequired,
-  fetchAllCards: PropTypes.func.isRequired,
-  addCard: PropTypes.func.isRequired,
+  likeCard: PropTypes.func,
 };
 
 export default CardList;

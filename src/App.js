@@ -27,28 +27,13 @@ import NewBoardForm from "./components/NewBoardForm";
 
 function App() {
   const [boardList, setBoardList] = useState([]);
-  const [cardsList, setCardsList] = useState([]);
+  const [selectedBoard, setSelectedBoard] = useState({
+    id: null,
+    title: null,
+    owner: null,
+    cards: []
+  })
   const URL = "http://127.0.0.1:5000";
-
-  const fetchAllCards = (boardId) => {
-    axios
-    
-      .get(`${URL}/boards/${boardId}/cards`)
-      .then((res) => {
-        console.log(res)
-        const cardsAPIResCopy = res.data.map((card) => {
-          return {
-            ...card,
-          };
-        });
-        setCardsList(cardsAPIResCopy);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(fetchAllCards, []); //intial get request
 
   useEffect(() => {
     axios
@@ -61,80 +46,129 @@ function App() {
           };
         });
         setBoardList(boardsAPIResCopy);
-        console.log(boardList);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const addCard = (boardId, newCardInfo) => {
-    //connecting to axios
-    axios
-      .post(`${URL}/boards/${boardId}/cards`, newCardInfo) 
-      .then((response) => {
-        const newCards = [...cardsList];
-        const newCardJSON = {
-          ...newCardInfo,
-          id: response.data.id,
-        };
-        newCards.push(newCardJSON);
-        setCardsList(newCards);
+  const onBoardSelect = (selectedBoard) => {
+    axios.get(`${URL}/boards/${selectedBoard.id}/cards`)
+    .then((res) => {
+      setSelectedBoard({
+        ...selectedBoard,
+        cards: res.data
       })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log("newCardForm is working");
-  };
-
-  const deleteCard = (cardId) => {
-    console.log("deleteCard called", cardId);
-    const newCardList = [];
-    for (const card of cardsList) {
-      if (card.id !== cardId) {
-        newCardList.push(card);
-      }
-    }
-    setCardsList(newCardList);
-  };
+      console.log(selectedBoard)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   const addBoard = (newBoardInfo) => {
-    axios.post(URL + "/boards")
+    axios.post(`${URL}/boards`, newBoardInfo)
     .then((res) => {
-      console.log(res)
+      console.log(res.data)
+      const newBoardList = [...boardList]
+      const newBoardJSON={
+        ...newBoardInfo,
+        "id": res.data.id
+      }
+      newBoardList.push(newBoardJSON)
+      setBoardList(newBoardList)
+    
     })
     .catch((err) => {
       console.log(err.response.data)
     })
   }
-
-  const handleClick = (boardId) => {
-    console.log("Clicked")
-    fetchAllCards(boardId)
+  
+  const addCard = (newCardData) => {
+    axios.post(`${URL}/boards/${selectedBoard.id}/cards`, newCardData)
+    .then((res) => {
+      const newCardList = [...selectedBoard.cards]
+      newCardList.push(res.data)
+      setBoardList({...selectedBoard, cards:newCardList})
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
+
+  const deleteCard = (deletedCard) => {
+    
+    const newCardList = [];
+    for (const card of selectedBoard.cards){
+      if (card.id !== deletedCard.id) {
+        newCardList.push(card)
+      }
+    }
+    setBoardList({...selectedBoard, cards: newCardList})
+    axios.delete(`${URL}/cards/${deletedCard.id}`)
+  }
+  
+  const likeCard = (cardLiked) => {
+    for (const card of selectedBoard.cards) {
+      if (card.id === cardLiked.id){
+        card.likes_count += 1
+      }
+    }
+    axios.patch(`${URL}/cards/${cardLiked.id}/${cardLiked.likes_count}`)
+  }
+
+  const [formStatus, setFormStatus] = useState("hidden")
+  const toggleForm = () => {
+    console.log("trying to hide")
+    if (!formStatus) {
+      setFormStatus("hidden")
+    } else {
+      setFormStatus("")
+    }
+  }
+
+  const [showCards, toggleShowCards] = useState("hidden")
+  useEffect(() => {
+    if (!selectedBoard.title) {
+      toggleShowCards("hidden")
+    } else {
+      toggleShowCards("")
+    }
+  }, [selectedBoard])
+
   console.log("App component is rendering");
 
   // console.log(test_board);
   return (
     <div>
-      <header></header>
-      <main>
+      <header>
         <h1>Inspiration Board</h1>
-        <CardList
-          cards={cardsList}
-          // fetchAllCards={fetchAllCards}
+      </header>
+      <main>
+        <section>
+          <Board 
+          boards={boardList} 
+          onBoardSelect={onBoardSelect}/>
+          <section id="selected-board">
+            <h1>{selectedBoard.title}</h1>
+          </section>
+
+          <section className={formStatus}>
+            <NewBoardForm 
+            addBoardCallBackFunc={addBoard} />
+             <button type="button" onClick={toggleForm}>Hide Board Form</button>
+          </section>
+          
+        </section>
+        
+        <section className={showCards}>
+          <CardList
+          cards={selectedBoard.cards} 
           deleteCard={deleteCard}
-          addCard={addCard}
-        />
-        {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
-        {/* <Board
-          id={test_board.board_id}
-          title={test_board.title}
-          owner={test_board.owner}
-          cards={test_board.cards}
-        /> */}
-        <Board boards={boardList} getCards={addCard} handleClick={handleClick}/>
-        <NewBoardForm addBoardCallBackFunc={addBoard} />
+          likeCard={likeCard}/>
+          <NewCardForm addCardCallbackFunc={addCard}/>
+        </section>
+        {/* <CardList cards={cardList} /> */}
       </main>
     </div>
   );
