@@ -114,7 +114,7 @@ function App() {
       .post(URL + "/boards", newBoardInfo)
       .then((res) => {
         const newBoardList = [...boardList];
-        const newBoardJSON = { ...newBoardInfo };
+        const newBoardJSON = { ...newBoardInfo, id: res.data.id };
         newBoardList.push(newBoardJSON);
         setBoardList(newBoardList);
       })
@@ -176,7 +176,12 @@ function App() {
           // getCards={addCard}
           onBoardSelect={onBoardSelect}
         />
-
+        <section>
+          <h1>Selected Board: </h1>
+          <h2>
+            {selectedBoard.title} - Creator: {selectedBoard.owner}
+          </h2>
+        </section>
         <section className="upper-box-grid">
           <div className="upper-box-container">
             <div className="card-form">
