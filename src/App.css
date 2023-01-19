@@ -16,7 +16,7 @@ main {
 .upper-box-grid {
   display: grid;
   grid-template-columns: repeat(5, 25%);
-  grid-area: 4/5/4/11;
+  grid-area: 4/4/4/11;
 }
 
 .upper-box-container {
@@ -28,7 +28,7 @@ main {
 .inspo-board-title {
   display: grid;
   font-family: 'Space Mono', monospace;
-  font-size: 70px;
+  font-size: 80px;
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(45deg, #FA8BFF 19%, #2BD2FF 52%, #2BFF88 76%);
