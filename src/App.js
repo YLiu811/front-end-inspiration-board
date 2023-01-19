@@ -96,16 +96,26 @@ function App() {
     })
   }
 
-  const deleteCard = (deletedCard) => {
+  const deleteCard = (deletedCardId) => {
     
-    const newCardList = [];
-    for (const card of selectedBoard.cards){
-      if (card.id !== deletedCard.id) {
-        newCardList.push(card)
+    
+    axios.delete(`${URL}/cards/${deletedCardId}`)
+    .then(() => {
+      const newCardList = [];
+      for (const card of selectedBoard.cards) {
+        if (card.id !== deletedCardId) {
+          newCardList.push(card)
+        }
       }
-    }
-    setBoardList({...selectedBoard, cards: newCardList})
-    axios.delete(`${URL}/cards/${deletedCard.id}`)
+      setSelectedBoard({
+        ...selectedBoard,
+        cards: newCardList
+      })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
   }
   
   const likeCard = (cardLiked) => {
