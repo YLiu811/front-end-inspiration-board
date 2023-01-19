@@ -24,3 +24,9 @@ input[type=submit] {
     vertical-align: middle;
     white-space: nowrap;
 }
+
+@media (min-width: 768px) {
+    input[type=submit] {
+        padding: 15px 10px;
+    }
+}

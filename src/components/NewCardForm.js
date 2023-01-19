@@ -28,6 +28,7 @@ const NewCardForm = (props) => {
       <label htmlFor="message" className="text-form">
         Message
       </label>
+      <br />
       <input
         type="text"
         id="message"
@@ -35,6 +36,7 @@ const NewCardForm = (props) => {
         value={cardFormData.message}
         onChange={handleChange}
       />
+      <br />
       <input type="submit" value="Add Card"/>
     </form>
   );

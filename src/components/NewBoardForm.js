@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./NewBoardForm.css"
 
 
 const INITIAL_FORM_DATA = {
@@ -24,10 +25,12 @@ const NewBoardForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleNewBoardSubmit}>
+    <div className="board-form-box">
+      <form onSubmit={handleNewBoardSubmit}>
       <label htmlFor="title" className="text-form">
         Board Title
       </label>
+      <br />
       <input
         type="text"
         id="title"
@@ -35,9 +38,11 @@ const NewBoardForm = (props) => {
         value={formData.title}
         onChange={handleChange}
       />
+      <br />
       <label htmlFor="owner" className="text-form">
         Board Owner
       </label>
+      <br />
       <input
         type="text"
         id="owner"
@@ -45,9 +50,11 @@ const NewBoardForm = (props) => {
         value={formData.owner}
         onChange={handleChange}
       />
-
+      <br />
       <input type="submit" value="Add Board" className="button"/>
     </form>
+    </div>
+
   );
 };
 

@@ -130,9 +130,7 @@ function App() {
             deleteCard={deleteCard}
             addCard={addCard}
           />
-        <div className="card-form">
-          <NewCardForm />
-        </div>
+
 
         {/* <NewCardForm message="testing" addCardCallbackFunc={addCard} /> */}
         {/* <Board
@@ -141,16 +139,25 @@ function App() {
           owner={test_board.owner}
           cards={test_board.cards}
         /> */}
-        <div className="board-container">
-          <Board
-            boards={boardList}
-            getCards={addCard}
-            handleClick={handleClick}
-          />
+      <section className="upper-box-grid">
+        <div className="upper-box-container">
+          <div className="board-container">
+            <Board
+              boards={boardList}
+              getCards={addCard}
+              handleClick={handleClick}
+            />
+          </div>
+          <div className="card-form">
+            <NewCardForm />
+          </div>
+          <div className="board-form">
+            <NewBoardForm addBoardCallBackFunc={addBoard} />
+          </div>
         </div>
-        <div className="board-form">
-          <NewBoardForm addBoardCallBackFunc={addBoard} />
-        </div>
+
+      </section>
+
       </main>
     </div>
   );
