@@ -122,7 +122,7 @@ function App() {
       <header></header>
       <main>
         <div className="title-container">
-          <h1 className="inspo-board-title">✧  ･ﾟ 🐥 The Rubber Duckies 🫧 ･ﾟ ✧</h1>
+          <h1 className="inspo-board-title">🐥 The Rubber Duckies 🫧</h1>
         </div>
           <CardList
             cards={cardsList}
